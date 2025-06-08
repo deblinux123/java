@@ -15,6 +15,12 @@ public class Information {
         double height = 1.78;
         boolean isStudent = false;
         
-        System.out.println("Hello my name is " + name + " and i have " + age + " years old and im student: " + isStudent);
+        System.out.println("Hello my name is " + name + ".");
+        System.out.println("I am " + age + " years old.");
+        System.out.println("My height is " + height + " meters.");
+        System.out.println("Am I a Student? " + isStudent);
+        
+        
+        System.out.println("I am " + name + ", " + age + " years old, and student status " + (isStudent?"Yes":"No"));
     }
 }
