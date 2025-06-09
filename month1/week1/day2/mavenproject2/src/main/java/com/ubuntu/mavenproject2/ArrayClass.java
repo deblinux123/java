@@ -37,5 +37,7 @@ public class ArrayClass {
         System.out.println("The first element in position one is: " + names.get(1));
         names.set(1, "FARID");
         System.out.println("now i change it into upper case " + names.get(1));
+        
+        System.out.println("Size of the array is: " + names.size());
     }
 }
