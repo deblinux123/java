@@ -41,7 +41,7 @@ public class Even {
         System.out.println("Positive: " + positive);
         System.out.println("Negative: " + negative);
         System.out.println("Zeros: " + zero);
-        System.out.println("Sum of Even number" + sumOfPositive);
+        System.out.println("Sum of Positive number " + sumOfPositive);
         System.out.println("Average of Positive number: " + avgPositive);
         System.out.println("Min and Max Numbers are: " + minNumber + " " + maxNumber);
     }
