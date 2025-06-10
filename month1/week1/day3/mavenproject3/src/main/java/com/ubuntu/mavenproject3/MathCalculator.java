@@ -13,13 +13,13 @@ public class MathCalculator {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a number: ");
         int number = scanner.nextInt();
-        MathCalculator(number);
+        printMathOperations(number);
         int factorial = factorial(number);
         System.out.println("فاکتوریل " + factorial);
     }
     
     
-    public static void MathCalculator(int number){
+    public static void printMathOperations(int number){
         System.out.println("توان دوم " + Math.pow(number, 2));
         System.out.printf("جذر%.2f \n" , Math.sqrt(number));
         System.out.println("مکعب " + Math.pow(number, 3));
