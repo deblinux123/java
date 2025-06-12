@@ -20,7 +20,7 @@ public class Student {
         studentCount++;
     }
     
-    public static void printTotalStudent(){
+    public static void printTotalStudents(){
         System.out.println("Total Student: " + studentCount);
     }
     

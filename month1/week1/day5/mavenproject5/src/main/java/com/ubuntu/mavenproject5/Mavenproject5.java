@@ -23,8 +23,22 @@ public class Mavenproject5 {
         Student s2 = new Student("Mobina", 2);
         
         System.out.println(s1);
+        System.out.println("--------------------");
         System.out.println(s2);
+        System.out.println("--------------------");
+        Student s3 = new Student("Reza", 3);
+        Student.printTotalStudents();
         
-        Student.printTotalStudent();
+        Teacher t1 = new Teacher("Mr. Hosseini", "Mathematics");
+        
+        t1.addStudent(s1);
+        t1.addStudent(s2);
+        t1.addStudent(s3);
+        t1.showStudents();
+        System.out.println("=============================");
+        System.out.println(t1);
+        System.out.println("=============================");
+        Student.printTotalStudents();
+
     }
 }
