@@ -8,7 +8,8 @@ package com.ubuntu.mavenproject6;
  *
  * @author toor
  */
-public class Cat extends Animal{
+public class Cat extends Animal implements Movable{
+    
     public Cat(String name, int age){
         super(name, age);
     }
@@ -18,6 +19,7 @@ public class Cat extends Animal{
         System.out.println("Cat Make Sound Meow");
     }
     
+    @Override
     public void move(){
         System.out.println("Cat move");
     }

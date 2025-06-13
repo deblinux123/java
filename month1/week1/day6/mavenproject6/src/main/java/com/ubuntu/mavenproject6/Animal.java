@@ -22,6 +22,5 @@ public abstract class Animal{
     public void ShowInfo(){
         System.out.println("Name: " + name + "\nAge: " + age);
     }
-    
-    
+
 }
