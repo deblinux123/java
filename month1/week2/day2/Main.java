@@ -18,7 +18,7 @@ public class Main
         scores.put("Ali", 30);
         scores.put("Asma", 100);
 
-        System.out.println(scores);
+        System.out.println(scores.get("Ali"));
 
         HashSet<String> email = new HashSet<>();
 
@@ -33,5 +33,26 @@ public class Main
             String name = iterator.next();
             System.out.println(name);
         }
+
+        Student s1 = new Student("ali", 1);
+        Student s2 = new Student("babak", 2);
+
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(s1);
+        students.add(s2);
+
+        students.add(new Student("Ali", 11));
+        students.add(new Student("Sara", 22));
+        students.add(new Student("Nima", 33));
+
+        Iterator<Student> iterator2 = students.iterator();
+
+        while(iterator2.hasNext())
+        {
+            Student s = iterator2.next();
+            System.out.println(s);
+        }
+
+        
     }
 }
