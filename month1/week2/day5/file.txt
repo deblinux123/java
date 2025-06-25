@@ -1,0 +1,6 @@
+hello
+this is the testing file
+i love java
+i love c++
+i also love ceh 
+my name is farid kaki
