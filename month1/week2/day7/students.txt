@@ -1,0 +1,5 @@
+farid,45,78
+ali,66,89
+asma,28,67
+farid,32,78
+babak,29,56
