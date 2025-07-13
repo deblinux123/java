@@ -13,7 +13,7 @@ public class Mavenproject1 {
     public static void main(String[] args) {
         String URL = "jdbc:mysql://localhost:3306/sensor_data_db";
         String USER = "root";
-        String PASSWORD = "f1309D1309@";
+        String PASSWORD = "yourPass";
         try(Connection conn = DriverManager.getConnection(URL, USER, PASSWORD))
         {
             System.out.println("\nconnected.\n");
