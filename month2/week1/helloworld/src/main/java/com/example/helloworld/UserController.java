@@ -1,37 +1,45 @@
 package com.example.helloworld;
 
-
-
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
-public class UserController
-{
-    private final UserService service;
+public class UserController {
     
-    public UserController(UserService service)
-    {
-        this.service = service;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @PostMapping
-    public User creatUser(@RequestBody User user)
-    {
-        return service.savUser(user);
-    }
-
+    // نمایش همه کاربران
     @GetMapping
-    public User getUser(@PathVariable Long id)
-    {
-        return service.getUserById(id);
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id)
-    {
-        service.deleteUser(id);
+    // نمایش کاربر خاص
+    @GetMapping("/{id}")
+    public Optional<User> getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
+
+    // افزودن کاربر جدید
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
+    }
+
+
+
+
 }
