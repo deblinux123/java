@@ -1,0 +1,6 @@
+vaadin:
+  launch-browser: true
+
+spring:
+  application:
+    name: LogInForm
