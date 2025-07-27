@@ -12,4 +12,16 @@ public class HomeController
         model.addAttribute("message", "This is my first usage of thymeleaf");
         return "index";
     }
+
+    @GetMapping("/login")
+    public String login()
+    {
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String register()
+    {
+        return "register";
+    }
 }

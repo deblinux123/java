@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>First Page</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <h1 th:text="${message}">this is the message</h1>
+
+    <!-- header -->
+     <header class="bg-dark text-white p-3 d-flex justify-content-between align-items-center">
+        <h2 class="m-0">My WebSite</h2>
+        <div>
+            <a href="/login" class="btn btn-outline-light me-2">Login</a>
+            <a href="/register" class="btn btn-outline-light">Register</a>
+        </div>
+     </header>
+
+     <!-- main -->
+     <main class="container flex-grow-1 mt-4">
+        <h1 th:text=${message}>Welcome to My Page</h1>
+        <p>
+            this is the simple page that i created with thymeleaf and bootstrap
+            Lorem ipsum dolor Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe fugit magni totam consequatur, inventore, delectus ducimus perferendis, quibusdam omnis cumque id. Odit labore cumque animi consequuntur velit consectetur cupiditate, doloribus facilis temporibus, incidunt, aspernatur quam neque id voluptatibus nemo tempore accusamus quis error laboriosam atque vel illo. Nemo soluta quo quas voluptates perspiciatis. Adipisci suscipit rerum, nisi ipsum quo iure sapiente neque itaque recusandae aliquam vero temporibus consequuntur veritatis molestias repellendus? Tempora, repellendus ut officia omnis sunt ullam deserunt facere consectetur libero temporibus incidunt sit nobis? Rerum corrupti impedit, alias enim et, praesentium vero aliquam, perferendis accusantium sint earum quasi? Assumenda blanditiis quis expedita veritatis recusandae possimus veniam numquam aliquam ipsum cupiditate doloremque odit iusto natus aliquid atque, tempora molestias animi nihil accusantium nisi voluptates facilis! Qui, amet eveniet ex saepe consectetur, illo recusandae maiores nam obcaecati a animi praesentium sint, necessitatibus temporibus totam expedita corrupti cumque tempore impedit eos doloribus ab numquam? Iusto, facere consequuntur beatae sit sapiente debitis aliquam tempore asperiores? Sed at dolor libero, iste voluptas consequatur voluptatibus natus reprehenderit dolores modi labore excepturi suscipit sunt ipsa aliquid assumenda pariatur, ex ratione. Molestias ducimus quasi delectus consectetur sint odit obcaecati cumque reiciendis, hic modi amet facilis cupiditate nostrum ab. Enim id amet mollitia, ratione vel doloribus voluptatibus error totam impedit, aliquam beatae molestiae dignissimos sed neque praesentium cumque dicta cum numquam officia culpa odit consequatur similique accusamus. Nobis, tempora quasi aliquam, ut repellat ipsa quis et accusamus cumque adipisci vero quia obcaecati laborum voluptates iusto aliquid veniam optio hic impedit tenetur deserunt? Nobis quia quisquam possimus facere cumque vero consequatur, a quibusdam, tempore, repellat praesentium sint doloribus? Eos non dolorum consequuntur, dolor ipsa, eaque expedita, aliquid animi mollitia incidunt consectetur. Inventore, nam corrupti, aliquid voluptate eveniet laboriosam assumenda officiis quia porro illo perspiciatis itaque, impedit neque consequatur.sit amet consectetur adipisicing elit. Odio iste nostrum eius corrupti enim neque cum. Eveniet aliquam ipsam necessitatibus, facere quibusdam reiciendis ipsum aliquid facilis, laboriosam atque ducimus maxime!
+        </p>
+     </main>
+
+     <!-- footer -->
+      <footer class="bg-dark text-white text-center p-3 mt-aouto">
+        <p class="m-0">&copy; 2025 farid kaki</p>
+      </footer>
 </body>
 </html>
