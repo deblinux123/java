@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: SessionDemo
+  datasource:
+    url: jdbc:mysql://localhost:3306/SessionDemo?useSSL=false&serverTimezone=UTC
+    username: root
+    password: f1309D1309@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        from-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  thymeleaf:
+    cache: false
+
+server:
+  port: 8080
