@@ -31,8 +31,8 @@ public class User
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    private List<Task> task;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Task> tasks;
 
 
     public Long getId() { return id; }

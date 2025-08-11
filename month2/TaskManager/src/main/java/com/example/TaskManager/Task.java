@@ -21,7 +21,7 @@ public class Task
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User users;
+    private User user;
 
     @Column(nullable = false, length = 100)
     public String title;
@@ -42,8 +42,8 @@ public class Task
     public Long getId() { return id; }
     public void setId(Long id ) { this.id = id; }
 
-    public User getUser() { return users; }
-    public void setUser(User users ) { this.users = users; }
+    public User getUser() { return user; }
+    public void setUser(User users ) { this.user = users; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }

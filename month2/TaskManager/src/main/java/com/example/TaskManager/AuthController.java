@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class AuthController 
 {
@@ -30,7 +32,7 @@ public class AuthController
             return "signup";
         }
 
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
@@ -41,16 +43,24 @@ public class AuthController
     }
 
     @PostMapping("/login")
-    public String loginSubit(@ModelAttribute User user, Model model)
+    public String loginSubit(@ModelAttribute User user,HttpSession session, Model model)
     {
-        boolean success = userService.loginUser(user.getUsername(), user.getPassword());
+        User logedInUser = userService.login(user.getUsername(), user.getPassword());
 
-        if (!success)
+        if (logedInUser == null)
         {
             model.addAttribute("error", "نام کاربری یا رمز عبور اشتباه است");
             return "login";
         }
+        session.setAttribute("currentUser", logedInUser);
 
-        return "redirect:/";
+        return "redirect:/tasks";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // حذف تمام اطلاعات سشن
+        return "redirect:/login";
+    }
+
 }

@@ -2,7 +2,7 @@ package com.example.TaskManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
+
 
 @Service
 public class UserService 
@@ -21,24 +21,10 @@ public class UserService
         return true;
     }
 
-    public boolean loginUser(String username, String password)
-    {
-        Optional<User> userOpt = userRepository.findByUsername(username);
-
-        if (userOpt.isEmpty())
-        {
-            return false;
-        }
-
-        User user = userOpt.get();
-
-        if (user.getPassword().equals(password))
-        {
-            return true;
-        }
-        else 
-        {
-            return false;
-        }
+    public User login(String username, String password) {
+        return userRepository.findByUsername(username)
+                .filter(u -> u.getPassword().equals(password))
+                .orElse(null);
     }
+
 }
