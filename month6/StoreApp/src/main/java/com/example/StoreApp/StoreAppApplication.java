@@ -10,8 +10,11 @@ public class StoreAppApplication {
 
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(StoreAppApplication.class, args);
-		var orderSevice = context.getBean(OrderSevice.class);
-		orderSevice.placeOrder();
+		// var orderSevice = context.getBean(OrderSevice.class);
+		// orderSevice.placeOrder();
+
+		var notification = context.getBean(NotificationManager.class);
+		notification.notification("hello my name is farid");
 	}
 
 }
