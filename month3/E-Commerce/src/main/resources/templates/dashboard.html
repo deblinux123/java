@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Panel - Store Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --sidebar-width: 250px;
+            --topbar-height: 60px;
+            --primary-color: #3a57e8;
+            --light-bg: #f8f9fc;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            overflow-x: hidden;
+        }
+        
+        #sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            z-index: 100;
+            transition: all 0.3s;
+        }
+        
+        #content {
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+            min-height: 100vh;
+            transition: all 0.3s;
+        }
+        
+        #topbar {
+            height: var(--topbar-height);
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: var(--sidebar-width);
+            z-index: 99;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .sidebar-logo {
+            height: var(--topbar-height);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .sidebar-menu .nav-link {
+            padding: 10px 20px;
+            color: #5a6a85;
+            display: flex;
+            align-items: center;
+            border-radius: 0;
+            margin: 5px 15px;
+        }
+        
+        .sidebar-menu .nav-link:hover, 
+        .sidebar-menu .nav-link.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .sidebar-menu .nav-link i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px 15px;
+        }
+        
+        .stat-card i {
+            font-size: 30px;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        
+        .chart-container {
+            height: 250px;
+            position: relative;
+        }
+        
+        .table-responsive {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .table th {
+            font-weight: 600;
+            color: #4a5568;
+            background-color: #f8f9fc;
+        }
+        
+        .table > :not(:first-child) {
+            border-top: none;
+        }
+        
+        .badge {
+            padding: 6px 10px;
+            font-weight: 500;
+        }
+        
+        .badge-success {
+            background-color: #0ab39c;
+        }
+        
+        .badge-warning {
+            background-color: #f7b924;
+        }
+        
+        .badge-danger {
+            background-color: #f06548;
+        }
+        
+        .badge-info {
+            background-color: #299cdb;
+        }
+        
+        .product-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin: 0 3px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .search-bar {
+            width: 300px;
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+        .status-active {
+            background-color: #0ab39c;
+        }
+        
+        .status-inactive {
+            background-color: #f06548;
+        }
+        
+        @media (max-width: 992px) {
+            #sidebar {
+                left: -var(--sidebar-width);
+            }
+            
+            #content, #topbar {
+                margin-left: 0;
+                left: 0;
+            }
+            
+            #sidebar.active {
+                left: 0;
+            }
+            
+            #content.active, #topbar.active {
+                margin-left: var(--sidebar-width);
+                left: var(--sidebar-width);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="sidebar-logo">
+            <h5 class="m-0">
+                <i class="bi bi-shop me-2"></i>
+                <span>StoreAdmin</span>
+            </h5>
+        </div>
+        
+        <div class="sidebar-menu">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        <i class="bi bi-speedometer2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-cart"></i>
+                        Products
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-grid"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-receipt"></i>
+                        Orders
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-people"></i>
+                        Customers
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-bar-chart"></i>
+                        Analytics
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-gear"></i>
+                        Settings
+                    </a>
+                </li>
+                <li class="nav-item mt-4">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-box-arrow-left"></i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Topbar -->
+    <nav id="topbar" class="navbar navbar-expand">
+        <div class="container-fluid">
+            <button class="btn btn-sm d-lg-none" id="sidebarToggle">
+                <i class="bi bi-list"></i>
+            </button>
+            
+            <div class="d-flex ms-auto align-items-center">
+                <div class="input-group search-bar">
+                    <input type="text" class="form-control form-control-sm" placeholder="Search...">
+                    <button class="btn btn-sm btn-outline-secondary" type="button">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+                
+                <div class="dropdown ms-3">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+                        <img src="https://via.placeholder.com/40" class="user-avatar me-2">
+                        <span>Admin User</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div id="content">
+        <div class="container-fluid">
+            <h1 class="page-title">Dashboard</h1>
+            
+            <!-- Stats Overview -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card bg-white">
+                        <div class="card-body stat-card">
+                            <i class="bi bi-cart text-primary bg-soft-primary"></i>
+                            <h3 class="mb-1">1,254</h3>
+                            <p class="text-muted mb-0">Total Orders</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-white">
+                        <div class="card-body stat-card">
+                            <i class="bi bi-currency-dollar text-success bg-soft-success"></i>
+                            <h3 class="mb-1">$24,560</h3>
+                            <p class="text-muted mb-0">Total Revenue</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-white">
+                        <div class="card-body stat-card">
+                            <i class="bi bi-people text-info bg-soft-info"></i>
+                            <h3 class="mb-1">2,350</h3>
+                            <p class="text-muted mb-0">Customers</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-white">
+                        <div class="card-body stat-card">
+                            <i class="bi bi-box-seam text-warning bg-soft-warning"></i>
+                            <h3 class="mb-1">1,845</h3>
+                            <p class="text-muted mb-0">Products</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts & Analytics -->
+            <div class="row mt-4">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header bg-white border-0">
+                            <h5 class="mb-0">Revenue Overview</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header bg-white border-0">
+                            <h5 class="mb-0">Sales by Category</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="categoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Orders -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Recent Orders</h5>
+                            <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-borderless mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Customer</th>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#ORD-001</td>
+                                            <td>John Smith</td>
+                                            <td>May 15, 2023</td>
+                                            <td>$245.99</td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                            <td>
+                                                <a href="#" class="action-btn bg-soft-primary text-primary">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#ORD-002</td>
+                                            <td>Emma Johnson</td>
+                                            <td>May 15, 2023</td>
+                                            <td>$145.50</td>
+                                            <td><span class="badge badge-warning">Processing</span></td>
+                                            <td>
+                                                <a href="#" class="action-btn bg-soft-primary text-primary">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#ORD-003</td>
+                                            <td>Michael Brown</td>
+                                            <td>May 14, 2023</td>
+                                            <td>$320.75</td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                            <td>
+                                                <a href="#" class="action-btn bg-soft-primary text-primary">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#ORD-004</td>
+                                            <td>Sarah Davis</td>
+                                            <td>May 14, 2023</td>
+                                            <td>$89.99</td>
+                                            <td><span class="badge badge-danger">Cancelled</span></td>
+                                            <td>
+                                                <a href="#" class="action-btn bg-soft-primary text-primary">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#ORD-005</td>
+                                            <td>Robert Wilson</td>
+                                            <td>May 13, 2023</td>
+                                            <td>$450.25</td>
+                                            <td><span class="badge badge-info">Shipped</span></td>
+                                            <td>
+                                                <a href="#" class="action-btn bg-soft-primary text-primary">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Management -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Product Management</h5>
+                            <a href="#" class="btn btn-sm btn-primary">
+                                <i class="bi bi-plus-circle me-1"></i> Add Product
+                            </a>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-borderless mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Product</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
+                                            <th>Stock</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><img src="https://via.placeholder.com/60" class="product-img"></td>
+                                            <td>Wireless Headphones Pro</td>
+                                            <td>Electronics</td>
+                                            <td>$129.99</td>
+                                            <td>45</td>
+                                            <td>
+                                                <span class="status-indicator status-active"></span>
+                                                Active
+                                            </td>
+                                            <td>
+                                                <a href="#" class="action-btn bg-soft-primary text-primary">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <a href="#" class="action-btn bg-soft-danger text-danger">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="https://via.placeholder.com/60" class="product-img"></td>
+                                            <td>Smart Fitness Watch</td>
+                                            <td>Electronics</td>
+                                            <td>$199.99</td>
+                                            <td>32</td>
+                                            <td>
+                                                <span class="status-indicator status-active"></span>
+                                                Active
+                                            </td>
+                                            <td>
+                                                <a href="#" class="action-btn bg-soft-primary text-primary">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <a href="#" class="action-btn bg-soft-danger text-danger">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="https://via.placeholder.com/60" class="product-img"></td>
+                                            <td>Stainless Steel Water Bottle</td>
+                                            <td>Home & Kitchen</td>
+                                            <td>$24.99</td>
+                                            <td>0</td>
+                                            <td>
+                                                <span class="status-indicator status-inactive"></span>
+                                                Out of Stock
+                                            </td>
+                                            <td>
+                                                <a href="#" class="action-btn bg-soft-primary text-primary">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <a href="#" class="action-btn bg-soft-danger text-danger">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="https://via.placeholder.com/60" class="product-img"></td>
+                                            <td>Premium Yoga Mat</td>
+                                            <td>Sports</td>
+                                            <td>$39.99</td>
+                                            <td>18</td>
+                                            <td>
+                                                <span class="status-indicator status-active"></span>
+                                                Active
+                                            </td>
+                                            <td>
+                                                <a href="#" class="action-btn bg-soft-primary text-primary">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <a href="#" class="action-btn bg-soft-danger text-danger">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap & Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Toggle sidebar on mobile
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('content').classList.toggle('active');
+            document.getElementById('topbar').classList.toggle('active');
+        });
+        
+        // Revenue chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        const revenueChart = new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [12000, 19000, 15000, 18000, 22000, 24560],
+                    borderColor: '#3a57e8',
+                    backgroundColor: 'rgba(58, 87, 232, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            drawBorder: false
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Category chart
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        const categoryChart = new Chart(categoryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Electronics', 'Fashion', 'Home & Kitchen', 'Sports', 'Books'],
+                datasets: [{
+                    data: [35, 25, 15, 15, 10],
+                    backgroundColor: [
+                        '#3a57e8',
+                        '#0ab39c',
+                        '#f7b924',
+                        '#299cdb',
+                        '#f06548'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    </script>
+</body>
+</html>
