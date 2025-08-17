@@ -1,8 +1,8 @@
 package com.example.StoreApp;
 
-import org.springframework.stereotype.Service;
+// import org.springframework.stereotype.Service;
 
-@Service
+// @Service
 public class OrderSevice {
     private final PaymentService paymentService;
 
