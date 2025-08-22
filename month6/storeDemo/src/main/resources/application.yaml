@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: storeDemo
+  datasource:
+    url: jdbc:mysql://localhost:3306/StoreDemo
+    username: root
+    password: f1309D1309@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

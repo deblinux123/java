@@ -66,4 +66,6 @@ public class RunRepository
         runs.add(new Run(4, "Sunday Morning", LocalDateTime.now(), LocalDateTime.now().plusMinutes(60), 3, Location.OUTDOOR));
 
     }
+
+
 }
