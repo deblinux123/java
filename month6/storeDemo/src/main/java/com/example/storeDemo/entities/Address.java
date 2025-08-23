@@ -4,7 +4,6 @@ package com.example.storeDemo.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
 
 @Builder
 @AllArgsConstructor

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5cc9ef11-241c-4d24-9f1d-20366821f4d3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/month6/myGame/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/month6/myGame/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/month6/myGame/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/month6/myGame/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/month6/myGame/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/month6/myGame/gradle.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "deblinux123"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/deblinux123/java",
+    "accountId": "9a30cfde-f90e-43a5-a9dd-5cc1cfd746be"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="31elRr0L7sSVwkL1AQWEqR59L7r" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/toor/Desktop/Java-Mobile-App-Learning-Project"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5cc9ef11-241c-4d24-9f1d-20366821f4d3" name="Changes" comment="" />
+      <created>1755892413895</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1755892413895</updated>
+    </task>
+    <servers />
+  </component>
+</project>
